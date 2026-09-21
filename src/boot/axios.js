@@ -4,8 +4,8 @@ import axios from "axios";
 // Note that if we wouldn't set any config here we do not need
 // a named export, as we could just `import axios from 'axios'`
 const api = axios.create({
-  baseURL: "https://localhost:44312/api/",
-  // baseURL: 'https://api.gestimed.com.mx/api/'
+  // baseURL: "https://localhost:44312/api/",
+  baseURL: "https://apigestimed.compraloahora.com.mx/api/",
 });
 
 // for use inside Vue files through this.$axios and this.$api
