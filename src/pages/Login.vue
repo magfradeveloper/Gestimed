@@ -87,7 +87,7 @@ export default {
             if (res.data !== null && res.data !== "") {
               progress.value[0].loading = false;
               Cookies.set("tokenLogged", res.data);
-              $router.push({ path: "/" });
+              $router.push({ path: "/Receta" });
             } else {
               progress.value[0].loading = false;
               $q.notify({

@@ -59,10 +59,10 @@
 
       <q-img class="absolute-top" :src="rutaImg" style="height: 150px">
         <div class="absolute-bottom bg-transparent">
-          <q-avatar size="56px" class="q-mb-sm">
+          <q-avatar size="56px">
             <img :src="rutaFoto" />
           </q-avatar>
-          <div class="text-weight-bold text-black">{{ nomDr }}</div>
+          <div class="text-weight-bold text-white">{{ nomDr }}</div>
         </div>
       </q-img>
     </q-drawer>
@@ -74,7 +74,7 @@
 </template>
 
 <script>
-import { defineComponent, ref } from "vue";
+import { defineComponent, ref, computed } from "vue";
 import EssentialLink from "components/EssentialLink.vue";
 import Cookies from "js-cookie";
 import { useRouter } from "vue-router";
@@ -100,6 +100,12 @@ const linksList = [
     // caption: "github.com/quasarframework",
     icon: "medical_services",
     link: "/#/Consultas",
+  },
+  {
+    title: "Receta Rápida",
+    // caption: "github.com/quasarframework",
+    icon: "medical_services",
+    link: "/#/Receta",
   },
   {
     title: "Medicamentos",
@@ -157,8 +163,17 @@ export default defineComponent({
     const $q = useQuasar();
     const $router = useRouter();
     const nomDr = ref("");
+    const medico = ref(null);
     const rutaImg = ref("");
     const rutaFoto = ref("");
+
+    const essentialLinks = computed(() => {
+      if (medico.value?.id_medico === 2) {
+        return linksList.filter((link) => link.title === "Receta Rápida");
+      }
+
+      return linksList;
+    });
 
     async function validarSesion() {
       console.log(Cookies.get("tokenLogged"));
@@ -193,6 +208,7 @@ export default defineComponent({
           token: Cookies.get("tokenLogged"),
         })
         .then((res) => {
+          this.medico = res.data;
           this.nomDr =
             "Dr. " +
             res.data.nom_medico +
@@ -226,8 +242,9 @@ export default defineComponent({
     }
 
     return {
-      essentialLinks: linksList,
+      essentialLinks,
       leftDrawerOpen,
+      medico,
       nomDr,
       rutaImg,
       rutaFoto,

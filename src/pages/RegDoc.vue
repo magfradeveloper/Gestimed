@@ -7,131 +7,201 @@
           <div class="row">
             <div class="col-xs-12 col-md-4 q-pa-md">
               <q-input color="primary" v-model="txtnom" label="Nombre">
-                  <template v-slot:prepend>
-                    <q-icon name="account_circle" />
-                  </template>
-                </q-input>
+                <template v-slot:prepend>
+                  <q-icon name="account_circle" />
+                </template>
+              </q-input>
             </div>
             <div class="col-xs-12 col-md-4 q-pa-md">
-              <q-input color="primary" v-model="txtapp" label="Apellido Paterno">
-                  <template v-slot:prepend>
-                    <q-icon name="account_circle" />
-                  </template>
-                </q-input>
+              <q-input
+                color="primary"
+                v-model="txtapp"
+                label="Apellido Paterno"
+              >
+                <template v-slot:prepend>
+                  <q-icon name="account_circle" />
+                </template>
+              </q-input>
             </div>
             <div class="col-xs-12 col-md-4 q-pa-md">
-              <q-input color="primary" v-model="txtapm" label="Apellido Materno">
-                  <template v-slot:prepend>
-                    <q-icon name="account_circle" />
-                  </template>
-                </q-input>
+              <q-input
+                color="primary"
+                v-model="txtapm"
+                label="Apellido Materno"
+              >
+                <template v-slot:prepend>
+                  <q-icon name="account_circle" />
+                </template>
+              </q-input>
             </div>
           </div>
           <div class="row">
-            <div class="col-xs-12 col-md-6 q-pa-md">
-              <q-input color="primary" v-model="txtced" label="Cédula Profesional">
-                  <template v-slot:prepend>
-                    <q-icon name="account_circle" />
-                  </template>
-                </q-input>
+            <div class="col-xs-12 col-md-4 q-pa-md">
+              <q-input
+                color="primary"
+                v-model="txtced"
+                label="Cédula Profesional"
+              >
+                <template v-slot:prepend>
+                  <q-icon name="account_circle" />
+                </template>
+              </q-input>
             </div>
-            <div class="col-xs-12 col-md-6 q-pa-md">
+            <div class="col-xs-12 col-md-4 q-pa-md">
               <q-select
-                  color="primary"
-                  v-model="slesp"
-                  label="Especialidad"
-                  option-value="id_especialidad"
-                  option-label="nom_especialidad"
-                  :options="esp"
-                  @filter="filterFn"
-                  emit-value
-                  map-options
-                  use-input
-                  behavior="menu"
-                >
-                  <template v-slot:prepend>
-                    <q-icon name="masks" />
-                  </template>
-                </q-select>
+                color="primary"
+                v-model="slesp"
+                label="Especialidad"
+                option-value="id_especialidad"
+                option-label="nom_especialidad"
+                :options="espArray"
+                @filter="filterFn"
+                emit-value
+                map-options
+                use-input
+                behavior="menu"
+              >
+                <template v-slot:prepend>
+                  <q-icon name="masks" />
+                </template>
+              </q-select>
+            </div>
+            <div class="col-xs-12 col-md-4 q-pa-md">
+              <q-select
+                color="primary"
+                v-model="slUniversidad"
+                label="Universidad"
+                option-value="idUniversidad"
+                option-label="nomUniversidad"
+                :options="espUniversidades"
+                @filter="filterFnUniver"
+                emit-value
+                map-options
+                use-input
+                behavior="menu"
+              >
+                <template v-slot:prepend>
+                  <q-icon name="school" />
+                </template>
+                <template v-slot:option="scope">
+                  <q-item v-bind="scope.itemProps">
+                    <q-item-section avatar>
+                      <q-img
+                        :src="
+                          rutaApi +
+                            scope.opt.logoUniversidad.substring(
+                              10,
+                              scope.opt.logoUniversidad.length
+                            ) || rutaLogoUniver
+                        "
+                        style="width: 40px; height: 40px"
+                        fit="contain"
+                      />
+                    </q-item-section>
+
+                    <q-item-section>
+                      <q-item-label>
+                        {{ scope.opt.nomUniversidad }}
+                      </q-item-label>
+                    </q-item-section>
+                  </q-item>
+                </template>
+              </q-select>
             </div>
           </div>
           <div class="row">
             <div class="col-xs-12 col-md-6 q-pa-md">
-               <q-input color="primary" v-model="txtmail" label="Correo electrónico">
-                  <template v-slot:prepend>
-                    <q-icon name="email" />
-                  </template>
-                </q-input>
+              <q-input
+                color="primary"
+                v-model="txtmail"
+                label="Correo electrónico"
+              >
+                <template v-slot:prepend>
+                  <q-icon name="email" />
+                </template>
+              </q-input>
             </div>
             <div class="col-xs-12 col-md-6 q-pa-md">
-               <q-input color="primary" v-model="txtcel" label="Celular">
-                  <template v-slot:prepend>
-                    <q-icon name="phone" />
-                  </template>
-                </q-input>
+              <q-input color="primary" v-model="txtcel" label="Celular">
+                <template v-slot:prepend>
+                  <q-icon name="phone" />
+                </template>
+              </q-input>
             </div>
           </div>
           <div class="row">
             <div class="col-xs-12 col-md-6 q-pa-md">
-              <q-input color="primary" v-model="txtpass" :type="isPwd ? 'password' : 'text'" label="Contraseña">
-                  <template v-slot:append>
-                        <q-icon
-                          :name="isPwd ? 'visibility_off' : 'visibility'"
-                          class="cursor-pointer"
-                          @click="isPwd = !isPwd"
-                        />
-                      </template>
-                </q-input>
+              <q-input
+                color="primary"
+                v-model="txtpass"
+                :type="isPwd ? 'password' : 'text'"
+                label="Contraseña"
+              >
+                <template v-slot:append>
+                  <q-icon
+                    :name="isPwd ? 'visibility_off' : 'visibility'"
+                    class="cursor-pointer"
+                    @click="isPwd = !isPwd"
+                  />
+                </template>
+              </q-input>
             </div>
             <div class="col-xs-12 col-md-6 q-pa-md">
-              <q-input color="primary" v-model="txtpass2" :type="isPwd2 ? 'password' : 'text'" label="Confirmar Contraseña">
-                  <template v-slot:append>
-                        <q-icon
-                          :name="isPwd2 ? 'visibility_off' : 'visibility'"
-                          class="cursor-pointer"
-                          @click="isPwd2 = !isPwd2"
-                        />
-                      </template>
-                </q-input>
+              <q-input
+                color="primary"
+                v-model="txtpass2"
+                :type="isPwd2 ? 'password' : 'text'"
+                label="Confirmar Contraseña"
+              >
+                <template v-slot:append>
+                  <q-icon
+                    :name="isPwd2 ? 'visibility_off' : 'visibility'"
+                    class="cursor-pointer"
+                    @click="isPwd2 = !isPwd2"
+                  />
+                </template>
+              </q-input>
             </div>
-            <br>
+            <br />
           </div>
-           <div class="q-pa-md">
-            <div class="full-width row q-gutter-md items-start justify-center text-center">
-                <q-uploader
-                        v-model="txtlogo"
-                        label="Logo de tu consultorio"
-                        dark
-                        hide-upload-btn
-                        @added="agregarLogo"
-                        :auto-upload="false"
-                      />
-                <q-uploader
-                        v-model="txtFoto"
-                        label="Tu foto"
-                        dark
-                        hide-upload-btn
-                        @added="agregarFoto"
-                        :auto-upload="false"
-                      />
+          <div class="q-pa-md">
+            <div
+              class="full-width row q-gutter-md items-start justify-center text-center"
+            >
+              <q-uploader
+                v-model="txtlogo"
+                label="Logo de tu consultorio"
+                dark
+                hide-upload-btn
+                @added="agregarLogo"
+                :auto-upload="false"
+              />
+              <q-uploader
+                v-model="txtFoto"
+                label="Tu foto"
+                dark
+                hide-upload-btn
+                @added="agregarFoto"
+                :auto-upload="false"
+              />
+            </div>
           </div>
-           </div>
-          
-          <br>
+
+          <br />
           <div class="text-center">
-              <q-btn
-                color="green-13"
-                style="width: 200px"
-                rounded
-                glossy
-                @click="registrarMedico()"
+            <q-btn
+              color="green-13"
+              style="width: 200px"
+              rounded
+              glossy
+              @click="registrarMedico()"
               >Registrar
               <template v-slot:loading>
                 <q-spinner-hourglass class="on-left" />
-                    Loading...
+                Loading...
               </template>
-              </q-btn>
-            </div>
+            </q-btn>
+          </div>
         </q-card-section>
       </q-card>
     </div>
@@ -139,83 +209,93 @@
 </template>
 
 <script>
-import { api } from 'boot/axios'
-import { ref } from 'vue'
-import { useQuasar } from 'quasar'
+import { api } from "boot/axios";
+import { ref, onMounted } from "vue";
+import { useQuasar } from "quasar";
 import Cookies from "js-cookie";
-import { useRouter } from 'vue-router'
+import { useRouter } from "vue-router";
+import { ruta } from "boot/rutas";
 
 export default {
   // name: 'PageName',
-  setup(){
-    const regex=new RegExp('^(?=.*\\d{2})(?=.*[\\u0021-\\u002b\\u003c-\\u0040]{2})(?=.*[A-Z]{3})(?=.*[a-z]{3})\\S{10}$')
-    const regexEmail=new RegExp('^[^@]+@[^@]+\.[a-zA-Z]{2,}$')
-    const esp = ref([{}])
-    const espArray=ref([{}])
-    const $q = useQuasar()
-    const $router = useRouter()
-    const slesp=ref(1)
-    const fileLogo=ref(null)
-    const fileFoto=ref(null)
-    const txtnom=ref("")
-    const txtapp=ref("")
-    const txtapm=ref("")
-    const txtcel=ref("")
-    const txtced=ref("")
-    const txtmail=ref("")
-    const txtpass=ref("")
-    const txtpass2=ref("")
+  setup() {
+    const regex = new RegExp(
+      "^(?=.*\\d{2})(?=.*[\\u0021-\\u002b\\u003c-\\u0040]{2})(?=.*[A-Z]{3})(?=.*[a-z]{3})\\S{10}$"
+    );
+    const regexEmail = new RegExp("^[^@]+@[^@]+\.[a-zA-Z]{2,}$");
+    const esp = ref([{}]);
+    const espUniver = ref([{}]);
+    const espArray = ref([{}]);
+    const espUniversidades = ref([{}]);
+    const $q = useQuasar();
+    const $router = useRouter();
+    const slesp = ref(1);
+    const slUniversidad = ref(1);
+    const rutaLogoUniver = ref("");
+    const fileLogo = ref(null);
+    const fileFoto = ref(null);
+    const txtnom = ref("");
+    const txtapp = ref("");
+    const txtapm = ref("");
+    const txtcel = ref("");
+    const txtced = ref("");
+    const txtmail = ref("");
+    const txtpass = ref("");
+    const txtpass2 = ref("");
 
-    function consultarEspecialidades(){
+    function consultarEspecialidades() {
       api.get("Medicos/consultarEspecialidades", {}).then((res) => {
-            console.log(res.data);
-            espArray.value=res.data;
-            esp.value=this.espArray;
-          });
+        console.log(res.data);
+        espArray.value = res.data;
+        esp.value = espArray;
+      });
     }
 
-    function agregarLogo(file){
-      fileLogo.value=file[0];
+    function getUniversidades() {
+      api.get("Universidades/getUniversidades", {}).then((res) => {
+        console.log(res.data);
+        espUniversidades.value = res.data;
+        espUniver.value = espUniversidades;
+      });
     }
 
-    function agregarFoto(file){
-      fileFoto.value=file[0];
+    function agregarLogo(file) {
+      fileLogo.value = file[0];
     }
 
-    function registrarMedico(){
+    function agregarFoto(file) {
+      fileFoto.value = file[0];
+    }
+
+    function registrarMedico() {
       // console.log(regexEmail.test(this.txtmail))
       // console.log(regex.test(this.txtpass))
       let fd = new FormData();
 
-      if(this.txtpass!==this.txtpass2){
+      if (this.txtpass !== this.txtpass2) {
         $q.notify({
-                  type: "negative",
-                  message:
-                    "Las contraseñas no coinciden, valídelas y vuelva a intentarlo",
-                });
-      }
-      else{
-        if(this.txtapp==null || this.txtapp==""){
+          type: "negative",
+          message:
+            "Las contraseñas no coinciden, valídelas y vuelva a intentarlo",
+        });
+      } else {
+        if (this.txtapp == null || this.txtapp == "") {
           $q.notify({
-                    type: "negative",
-                    message:
-                      "Ingrese su apellido paterno",
-                  });
-        }
-        else{
-          if(this.txtced==null || this.txtced==""){
+            type: "negative",
+            message: "Ingrese su apellido paterno",
+          });
+        } else {
+          if (this.txtced == null || this.txtced == "") {
             $q.notify({
-                    type: "negative",
-                    message:
-                      "Ingrese su número de cédula profesional.",
-                  });
-          }
-          else{
-            if(this.fileLogo != null) {
+              type: "negative",
+              message: "Ingrese su número de cédula profesional.",
+            });
+          } else {
+            if (this.fileLogo != null) {
               fd.append("logo", this.fileLogo);
             }
 
-            if(this.fileFoto != null){
+            if (this.fileFoto != null) {
               fd.append("foto", this.fileFoto);
             }
 
@@ -227,18 +307,17 @@ export default {
             fd.append("pass", this.txtpass);
             fd.append("cedula", this.txtced);
             fd.append("id_especialidad", this.slesp);
-            
-            api
-            .post("Medicos/registrarMedico", fd, {}).then((res) => {
+            fd.append("idUniversidad", this.slUniversidad);
+
+            api.post("Medicos/registrarMedico", fd, {}).then((res) => {
               console.log(res);
-              if (res.data!==null && res.data!=="") {
+              if (res.data !== null && res.data !== "") {
                 Cookies.set("tokenLogged", res.data);
-                $router.push({path: '/Pacientes'})
+                $router.push({ path: "/Receta" });
               } else {
                 $q.notify({
                   type: "negative",
-                  message:
-                    "Ha ocurrido un error, vuelva a intentarlo",
+                  message: "Ha ocurrido un error, vuelva a intentarlo",
                 });
               }
             });
@@ -246,13 +325,22 @@ export default {
         }
       }
     }
+    onMounted(async () => {
+      consultarEspecialidades();
+      getUniversidades();
+    });
 
     return {
       isPwd: ref(false),
       isPwd2: ref(false),
       slesp,
+      slUniversidad,
       esp,
       espArray,
+      espUniver,
+      espUniversidades,
+      rutaApi: ref(ruta),
+      rutaLogoUniver,
       fileLogo,
       fileFoto,
       txtnom,
@@ -264,28 +352,43 @@ export default {
       txtpass,
       txtpass2,
       consultarEspecialidades,
+      getUniversidades,
       agregarLogo,
       agregarFoto,
       registrarMedico,
 
-      filterFn (val, update) {
-        if (val === '') {
+      filterFn(val, update) {
+        if (val === "") {
           update(() => {
-            esp.value = espArray.value
-          })
-          return
+            esp.value = espArray.value;
+          });
+          return;
         }
 
         update(() => {
-          const needle = val.toLowerCase()
-          esp.value = espArray.value.filter(v => v.nom_especialidad.toLowerCase().indexOf(needle) > -1)
-        })
-      }
-    }
-  },
+          const needle = val.toLowerCase();
+          esp.value = espArray.value.filter(
+            (v) => v.nom_especialidad.toLowerCase().indexOf(needle) > -1
+          );
+        });
+      },
 
-  mounted: function (){
-    this.consultarEspecialidades();
+      filterFnUniver(val, update) {
+        if (val === "") {
+          update(() => {
+            espUniver.value = espUniversidades.value;
+          });
+          return;
+        }
+
+        update(() => {
+          const needle = val.toLowerCase();
+          espUniver.value = espUniversidades.value.filter(
+            (v) => v.nomUniversidad.toLowerCase().indexOf(needle) > -1
+          );
+        });
+      },
+    };
   },
-}
+};
 </script>

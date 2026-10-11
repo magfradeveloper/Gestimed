@@ -421,7 +421,7 @@
 
         <q-card-section class="q-pt-none">
           <div class="row">
-            <div class="col-xs-12 col-md-6 q-pa-md">
+            <div class="col-xs-12 col-md-6 q-pa-sm">
               <q-select
                 color="primary"
                 v-model="slmedi"
@@ -440,7 +440,35 @@
                 </template>
               </q-select>
             </div>
-            <div class="col-xs-6 col-md-3 q-pa-md">
+            <div class="col-xs-6 col-md-3 q-pa-sm">
+              <q-select
+                color="primary"
+                v-model="slCantidad"
+                label="Cantidad"
+                :options="cantidad"
+                emit-value
+                map-options
+                behavior="menu"
+              >
+              </q-select>
+            </div>
+            <div class="col-xs-6 col-md-3 q-pa-sm">
+              <q-select
+                color="primary"
+                v-model="slAdmon"
+                label="Vía Administración"
+                :options="vias"
+                option-value="idViaAdministracion"
+                option-label="nomViaAdministracion"
+                behavior="menu"
+              >
+              </q-select>
+            </div>
+            <div class="col-xs-6 col-md-4 q-pa-sm">
+              <q-input color="primary" v-model="txtdosis" label="Dósis">
+              </q-input>
+            </div>
+            <div class="col-xs-6 col-md-4 q-pa-sm">
               <q-select
                 color="primary"
                 v-model="slper"
@@ -452,7 +480,7 @@
               >
               </q-select>
             </div>
-            <div class="col-xs-6 col-md-3 q-pa-md">
+            <div class="col-xs-6 col-md-4 q-pa-sm">
               <q-select
                 color="primary"
                 v-model="slap"
@@ -465,7 +493,29 @@
               </q-select>
             </div>
           </div>
-          <div>
+          <div class="row justify-center">
+            <div class="col-xs-6 col-md-4 q-pa-sm">
+              <q-input
+                color="primary"
+                v-model.number="txtdur"
+                label="Duración"
+              ></q-input>
+            </div>
+            <div class="col-xs-6 col-md-4 q-pa-sm">
+              <q-select
+                color="primary"
+                v-model="slTiempoDur"
+                label="Tiempo"
+                :options="tiempoDur"
+                emit-value
+                map-options
+                behavior="menu"
+              >
+              </q-select>
+            </div>
+          </div>
+
+          <div class="row">
             <div class="col-md-12 q-pa-xs">
               <q-input
                 v-model="txtobsmed"

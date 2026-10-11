@@ -2,7 +2,7 @@
 // Note that if we wouldn't set any config here we do not need
 // a named export, as we could just `import axios from 'axios'`
 const ruta = "https://apigestimed.compraloahora.com.mx/Files";
-// const ruta = 'https://localhost:44312//Files'
+// const ruta = "https://localhost:44312/Files";
 
 // for use inside Vue files through this.$axios and this.$api
 // (only in Vue Options API form)
